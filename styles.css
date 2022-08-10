@@ -9,3 +9,10 @@ body {
     color: #DAD7CD;
 }
 
+.calculator-body {
+    height: 600px;
+    width: 400px;
+    border: 6px solid #E53D00;
+    border-radius: 15px;
+    text-align: center;
+}
