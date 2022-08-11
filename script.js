@@ -1,4 +1,9 @@
-currentDisplayValue = document.querySelector(".display-operation");
+const currentDisplayValue = document.querySelector(".display-current");
+const numberButtons = document.querySelectorAll(".number");
+const operatorButtons = document.querySelectorAll(".operator");
+const equalButton = document.querySelector("#equal");
+const percentageButton = document.querySelector("#percentage");
+const decimalButton = document.querySelector("#decimal");
 
 function add(num1, num2) {
     return num1 + num2;
@@ -38,4 +43,14 @@ function operate(num1, operator, num2) {
 function populateDisplay(event) {
     currentDisplayValue.textContent += event.target.value;
 }
+
+numberButtons.forEach(numberButton => {
+    numberButton.addEventListener("click", (event) => populateDisplay(event));
+});
+
+operatorButtons.forEach(operatorButton => {
+    operatorButton.addEventListener("click", (event) => populateDisplay(event));
+});
+
+percentageButton.addEventListener("click", (event) => populateDisplay(event));
 
