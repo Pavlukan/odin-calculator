@@ -31,3 +31,13 @@ body {
     align-items: flex-end;
     justify-content: flex-end;
 }
+
+.display-history {
+    font-size: 21px;
+    padding: 0px 16px;
+}
+
+.display-current {
+    padding: 0px 6px;
+    font-size: 36px;
+}
