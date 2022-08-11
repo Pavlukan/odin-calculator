@@ -77,3 +77,8 @@ button:active {
 .grid-col-span-2 {
     grid-column: span 2;
 }
+
+.footer {
+    padding: 32px;
+    font-size: 18px;
+}
