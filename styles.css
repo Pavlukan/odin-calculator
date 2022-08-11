@@ -82,3 +82,12 @@ button:active {
     padding: 32px;
     font-size: 18px;
 }
+
+a {
+    text-decoration: none;
+    color: #DAD7CD;
+}
+
+a:hover {
+    color: #E53D00;
+}
