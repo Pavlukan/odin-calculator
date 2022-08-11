@@ -1,3 +1,5 @@
+currentDisplayValue = document.querySelector(".display-operation");
+
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -32,3 +34,8 @@ function operate(num1, operator, num2) {
             return "OOPS! Something went wrong"
     }
 }
+
+function populateDisplay(event) {
+    currentDisplayValue.textContent += event.target.value;
+}
+
