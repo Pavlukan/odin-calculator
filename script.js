@@ -65,6 +65,10 @@ function clearDisplay() {
     previousDisplayValue.textContent = "";
 }
 
+function deleteCharacter() {
+    currentDisplayValue.textContent = currentDisplayValue.textContent.toString().slice(0, -1);
+}
+
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener("click", (event) => populateDisplay(event));
 });
@@ -72,6 +76,7 @@ numberButtons.forEach(numberButton => {
 operatorButtons.forEach(operatorButton => {
     operatorButton.addEventListener("click", (event) => {
         populateDisplay(event);
+        isDecimal = false;
     });
 });
 
@@ -80,6 +85,8 @@ decimalButton.addEventListener("click", (event) => addDecimal(event));
 percentageButton.addEventListener("click", (event) => populateDisplay(event));
 
 clearButton.addEventListener("click", clearDisplay);
+
+deleteButton.addEventListener("click", deleteCharacter);
 
 
 
