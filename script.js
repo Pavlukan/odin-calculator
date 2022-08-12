@@ -5,6 +5,7 @@ const operatorButtons = document.querySelectorAll(".operator");
 const equalButton = document.querySelector("#equal");
 const percentageButton = document.querySelector("#percentage");
 const decimalButton = document.querySelector("#decimal");
+const clearButton = document.querySelector("#clear");
 
 function add(num1, num2) {
     return num1 + num2;
@@ -46,7 +47,7 @@ function populateDisplay(event) {
 }
 
 function clearDisplay() {
-    currentDisplayValue.textContent = 0;
+    currentDisplayValue.textContent = "";
     previousDisplayValue.textContent = "";
 }
 
@@ -61,4 +62,7 @@ operatorButtons.forEach(operatorButton => {
 });
 
 percentageButton.addEventListener("click", (event) => populateDisplay(event));
+
+clearButton.addEventListener("click", clearDisplay);
+
 
