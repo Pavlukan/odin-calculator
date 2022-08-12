@@ -1,4 +1,5 @@
 const currentDisplayValue = document.querySelector(".display-current");
+const previousDisplayValue = document.querySelector(".display-history");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalButton = document.querySelector("#equal");
@@ -44,12 +45,19 @@ function populateDisplay(event) {
     currentDisplayValue.textContent += event.target.value;
 }
 
+function clearDisplay() {
+    currentDisplayValue.textContent = 0;
+    previousDisplayValue.textContent = "";
+}
+
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener("click", (event) => populateDisplay(event));
 });
 
 operatorButtons.forEach(operatorButton => {
-    operatorButton.addEventListener("click", (event) => populateDisplay(event));
+    operatorButton.addEventListener("click", (event) => {
+        populateDisplay(event);
+    });
 });
 
 percentageButton.addEventListener("click", (event) => populateDisplay(event));
