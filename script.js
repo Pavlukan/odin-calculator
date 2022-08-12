@@ -6,6 +6,8 @@ const equalButton = document.querySelector("#equal");
 const percentageButton = document.querySelector("#percentage");
 const decimalButton = document.querySelector("#decimal");
 const clearButton = document.querySelector("#clear");
+const deleteButton = document.querySelector("#delete");
+let isDecimal = false;
 
 function add(num1, num2) {
     return num1 + num2;
@@ -46,6 +48,15 @@ function populateDisplay(event) {
     currentDisplayValue.textContent += event.target.value;
 }
 
+function addDecimal(event) {
+    if (isDecimal) {
+        return;
+    } else {
+        currentDisplayValue.textContent += event.target.value;
+        isDecimal = true;
+    }
+}
+
 function clearDisplay() {
     currentDisplayValue.textContent = "";
     previousDisplayValue.textContent = "";
@@ -61,8 +72,14 @@ operatorButtons.forEach(operatorButton => {
     });
 });
 
+decimalButton.addEventListener("click", (event) => addDecimal(event));
+
 percentageButton.addEventListener("click", (event) => populateDisplay(event));
 
 clearButton.addEventListener("click", clearDisplay);
+
+
+
+
 
 
