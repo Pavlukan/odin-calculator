@@ -30,7 +30,6 @@ function divide(num1, num2) {
     if (num2 === "0") {
         return "Are you mocking me?";
     }
-
     return parseFloat(num1) / parseFloat(num2);
 }
 
@@ -51,6 +50,13 @@ function operate(num1, operator, num2) {
         default:
             return "OOPS! Something went wrong"
     }
+}
+
+function evaluate() {
+    result = operate(num1, operator, num2);
+    currentDisplayValue.textContent = result;
+    clearGlobalVariables();
+    num1 = result;
 }
 
 function populateDisplay(event) {
@@ -76,7 +82,7 @@ function clearGlobalVariables() {
     num1 = "";
     num2 = "";
     operator = "";
-    waitingForSecondNumber = "";
+    waitingForSecondNumber = false;
     isDecimal = false;
 }
 
@@ -86,7 +92,8 @@ function clearDisplay() {
     clearGlobalVariables();
 }
 
-function deleteCharacter() {
+function deleteCharacter(event) {
+    num1 = num1.toString().slice(0, -1);
     currentDisplayValue.textContent = currentDisplayValue.textContent.toString().slice(0, -1);
 }
 
@@ -101,6 +108,8 @@ operatorButtons.forEach(operatorButton => {
         waitingForSecondNumber = true;
     });
 });
+
+equalButton.addEventListener("click", evaluate);
 
 decimalButton.addEventListener("click", (event) => addDecimal(event));
 
