@@ -65,6 +65,9 @@ function addDecimal(event) {
 function clearDisplay() {
     currentDisplayValue.textContent = "";
     previousDisplayValue.textContent = "";
+    num1 = "";
+    num2 = "";
+    operator = null;
 }
 
 function deleteCharacter() {
