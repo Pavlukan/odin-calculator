@@ -7,10 +7,12 @@ const percentageButton = document.querySelector("#percentage");
 const decimalButton = document.querySelector("#decimal");
 const clearButton = document.querySelector("#clear");
 const deleteButton = document.querySelector("#delete");
-let isDecimal = false;
 let num1 = "";
 let num2 = "";
+let operator = "";
 let result = null;
+let waitingForSecondNumber = false;
+let isDecimal = false;
 
 function add(num1, num2) {
     return num1 + num2;
