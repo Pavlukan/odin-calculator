@@ -50,7 +50,13 @@ function operate(num1, operator, num2) {
 }
 
 function populateDisplay(event) {
-    currentDisplayValue.textContent += event.target.value;
+    if (!waitingForSecondNumber) {
+        num1 += event.target.value;
+        currentDisplayValue.textContent = num1;
+    } else if (waitingForSecondNumber) {
+        num2 += event.target.value;
+        currentDisplayValue.textContent = num2;
+    }
 }
 
 function addDecimal(event) {
