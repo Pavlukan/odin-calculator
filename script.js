@@ -80,8 +80,9 @@ numberButtons.forEach(numberButton => {
 
 operatorButtons.forEach(operatorButton => {
     operatorButton.addEventListener("click", (event) => {
-        populateDisplay(event);
+        operator = event.target.value;
         isDecimal = false;
+        waitingForSecondNumber = true;
     });
 });
 
