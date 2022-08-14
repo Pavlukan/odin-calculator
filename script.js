@@ -135,6 +135,9 @@ operatorButtons.forEach(operatorButton => {
     operatorButton.addEventListener("click", (event) => {
         switch (operator) { // this block of code is responsible for chaining operations
             case "+":
+                if (num1 === "") {
+                    break;
+                }
                 num1 = add(num1, num2);
                 saveOperator(event);
                 num2 = "";
@@ -142,6 +145,9 @@ operatorButtons.forEach(operatorButton => {
                 break;
 
             case "-":
+                if (num1 === "") {
+                    break;
+                }
                 num1 = subtract(num1, num2);
                 saveOperator(event);
                 num2 = "";
@@ -149,6 +155,9 @@ operatorButtons.forEach(operatorButton => {
                 break;
 
             case "×":
+                if (num1 === "") {
+                    break;
+                }
                 num1 = multiply(num1, num2);
                 saveOperator(event);
                 num2 = "";
@@ -156,6 +165,9 @@ operatorButtons.forEach(operatorButton => {
                 break;
 
             case "÷":
+                if (num1 === "") {
+                    break;
+                }
                 num1 = divide(num1, num2);
                 saveOperator(event);
                 num2 = "";
@@ -163,6 +175,9 @@ operatorButtons.forEach(operatorButton => {
                 break;
 
             default: 
+                if (num1 === "") {
+                break;
+                }
                 saveOperator(event);
                 break;
         }
