@@ -83,12 +83,16 @@ function populateDisplay(event) {
 }
 
 // function which adds a decimal point
-function addDecimal(event) {
-    if (isDecimal) {
-        return;
-    } else {
-        currentDisplayValue.textContent += event.target.value;
+function addDecimal() {
+    if(!waitingForSecondNumber && num1.toString().includes(".") === false) {
+        num1 += "."
+        currentDisplayValue.textContent = num1;
+    } else if (waitingForSecondNumber && num2.toString().includes(".") === false) {
+        num2 += "."
+        currentDisplayValue.textContent = num2;
         isDecimal = true;
+    } else {
+        return;
     }
 }
 
