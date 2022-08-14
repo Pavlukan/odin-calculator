@@ -1,3 +1,4 @@
+// select objects
 const currentDisplayValue = document.querySelector(".display-current");
 const previousDisplayValue = document.querySelector(".display-history");
 const numberButtons = document.querySelectorAll(".number");
@@ -7,6 +8,8 @@ const percentageButton = document.querySelector("#percentage");
 const decimalButton = document.querySelector("#decimal");
 const clearButton = document.querySelector("#clear");
 const deleteButton = document.querySelector("#delete");
+
+// create global variables
 let num1 = "";
 let num2 = "";
 let operator = "";
@@ -14,6 +17,7 @@ let result = null;
 let waitingForSecondNumber = false;
 let isDecimal = false;
 
+// basic arithmetic functions
 function add(num1, num2) {
     return parseFloat(num1) + parseFloat(num2);
 }
@@ -27,7 +31,7 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    if (num2 === "0") {
+    if (num2 === "0") { // displays a snarky error if the user divides by zero
         return "Are you mocking me?";
     }
     return parseFloat(num1) / parseFloat(num2);
@@ -53,12 +57,17 @@ function operate(num1, operator, num2) {
 }
 
 function evaluate() {
-    result = operate(num1, operator, num2);
-    currentDisplayValue.textContent = result;
-    clearGlobalVariables();
-    num1 = result;
+    if (currentDisplayValue.textContent === "") {
+        return;
+    } else if (currentDisplayValue.textContent) {
+        result = operate(num1, operator, num2);
+        currentDisplayValue.textContent = result;
+        clearGlobalVariables();
+        num1 = result;
+    }
 }
 
+// function which populates the display with numbers
 function populateDisplay(event) {
     if (!waitingForSecondNumber) {
         num1 += event.target.value;
@@ -69,6 +78,7 @@ function populateDisplay(event) {
     }
 }
 
+// function which adds a decimal point
 function addDecimal(event) {
     if (isDecimal) {
         return;
@@ -78,6 +88,7 @@ function addDecimal(event) {
     }
 }
 
+// function which clears all the global variables to their initial state
 function clearGlobalVariables() {
     num1 = "";
     num2 = "";
@@ -86,26 +97,65 @@ function clearGlobalVariables() {
     isDecimal = false;
 }
 
+// function which clears the display
 function clearDisplay() {
     currentDisplayValue.textContent = "";
     previousDisplayValue.textContent = "";
     clearGlobalVariables();
 }
 
+function saveOperator(event) {
+    operator = event.target.value;
+    waitingForSecondNumber = true;
+    isDecimal = false;
+}
+
+// function which removes the last character
 function deleteCharacter(event) {
     num1 = num1.toString().slice(0, -1);
     currentDisplayValue.textContent = currentDisplayValue.textContent.toString().slice(0, -1);
 }
 
+// event listeners for buttons
 numberButtons.forEach(numberButton => {
     numberButton.addEventListener("click", (event) => populateDisplay(event));
 });
 
 operatorButtons.forEach(operatorButton => {
     operatorButton.addEventListener("click", (event) => {
-        operator = event.target.value;
-        isDecimal = false;
-        waitingForSecondNumber = true;
+        switch (operator) {
+            case "+":
+                num1 = add(num1, num2);
+                saveOperator(event);
+                num2 = "";
+                currentDisplayValue.textContent = `${num1} ${operator}`;
+                break;
+
+            case "-":
+                num1 = subtract(num1, num2);
+                saveOperator(event);
+                num2 = "";
+                currentDisplayValue.textContent = `${num1} ${operator}`;
+                break;
+
+            case "×":
+                num1 = multiply(num1, num2);
+                saveOperator(event);
+                num2 = "";
+                currentDisplayValue.textContent = `${num1} ${operator}`;
+                break;
+
+            case "÷":
+                num1 = divide(num1, num2);
+                saveOperator(event);
+                num2 = "";
+                currentDisplayValue.textContent = `${num1} ${operator}`;
+                break;
+
+            default: 
+                saveOperator(event);
+                break;
+        }
     });
 });
 
