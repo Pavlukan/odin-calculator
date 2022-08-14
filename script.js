@@ -15,7 +15,6 @@ let num2 = "";
 let operator = "";
 let result = null;
 let waitingForSecondNumber = false;
-let isDecimal = false;
 
 // basic arithmetic functions
 function add(num1, num2) {
@@ -90,7 +89,6 @@ function addDecimal() {
     } else if (waitingForSecondNumber && num2.toString().includes(".") === false) {
         num2 += "."
         currentDisplayValue.textContent = num2;
-        isDecimal = true;
     } else {
         return;
     }
@@ -102,7 +100,6 @@ function clearGlobalVariables() {
     num2 = "";
     operator = "";
     waitingForSecondNumber = false;
-    isDecimal = false;
 }
 
 // function which clears the display
@@ -116,7 +113,6 @@ function clearDisplay() {
 function saveOperator(event) {
     operator = event.target.value;
     waitingForSecondNumber = true;
-    isDecimal = false;
 }
 
 // function which removes the last character
