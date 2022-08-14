@@ -57,7 +57,9 @@ function operate(num1, operator, num2) {
 }
 
 function evaluate() {
-    if (currentDisplayValue.textContent === "") {
+    if (currentDisplayValue.textContent === "") { // prevents user from running calculation on an empty expression
+        return;
+    } else if (num2 === "") { // prevents user from running calculation only a single number
         return;
     } else if (currentDisplayValue.textContent) {
         result = operate(num1, operator, num2);
@@ -104,6 +106,7 @@ function clearDisplay() {
     clearGlobalVariables();
 }
 
+// this function saves the operator and refreshes the values of two of the global variables
 function saveOperator(event) {
     operator = event.target.value;
     waitingForSecondNumber = true;
@@ -123,7 +126,8 @@ numberButtons.forEach(numberButton => {
 
 operatorButtons.forEach(operatorButton => {
     operatorButton.addEventListener("click", (event) => {
-        switch (operator) {
+        
+        switch (operator) { // this block of code is responsible for chaining operations
             case "+":
                 num1 = add(num1, num2);
                 saveOperator(event);
@@ -159,7 +163,10 @@ operatorButtons.forEach(operatorButton => {
     });
 });
 
-equalButton.addEventListener("click", evaluate);
+equalButton.addEventListener("click", () => {
+    evaluate();
+
+});
 
 decimalButton.addEventListener("click", (event) => addDecimal(event));
 
