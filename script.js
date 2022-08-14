@@ -59,7 +59,7 @@ function operate(num1, operator, num2) {
 function evaluate() {
     if (currentDisplayValue.textContent === "") { // prevents user from running calculation on an empty expression
         return;
-    } else if (num2 === "") { // prevents user from running calculation only a single number
+    } else if (num2 === "" || num1 === "") { // prevents user from running calculation only on a single number
         return;
     } else if (num1 === "Are you mocking me?") { // prevents user from being too smart and operating on "Are you mocking me?"
         return clearDisplay();
