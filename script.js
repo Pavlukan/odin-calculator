@@ -61,6 +61,8 @@ function evaluate() {
         return;
     } else if (num2 === "") { // prevents user from running calculation only a single number
         return;
+    } else if (num1 === "Are you mocking me?") { // prevents user from being too smart and operating on "Are you mocking me?"
+        return clearDisplay();
     } else if (currentDisplayValue.textContent) {
         result = operate(num1, operator, num2);
         currentDisplayValue.textContent = result;
@@ -115,8 +117,13 @@ function saveOperator(event) {
 
 // function which removes the last character
 function deleteCharacter(event) {
-    num1 = num1.toString().slice(0, -1);
-    currentDisplayValue.textContent = currentDisplayValue.textContent.toString().slice(0, -1);
+    if (!waitingForSecondNumber) {
+        num1 = num1.toString().slice(0, -1);
+        currentDisplayValue.textContent = currentDisplayValue.textContent.toString().slice(0, -1);
+    } else if (waitingForSecondNumber) {
+        num2 = num2.toString().slice(0, -1);
+        currentDisplayValue.textContent = currentDisplayValue.textContent.toString().slice(0, -1);
+    }
 }
 
 // event listeners for buttons
@@ -126,7 +133,6 @@ numberButtons.forEach(numberButton => {
 
 operatorButtons.forEach(operatorButton => {
     operatorButton.addEventListener("click", (event) => {
-        
         switch (operator) { // this block of code is responsible for chaining operations
             case "+":
                 num1 = add(num1, num2);
@@ -165,7 +171,6 @@ operatorButtons.forEach(operatorButton => {
 
 equalButton.addEventListener("click", () => {
     evaluate();
-
 });
 
 decimalButton.addEventListener("click", (event) => addDecimal(event));
