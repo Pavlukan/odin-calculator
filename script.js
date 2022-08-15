@@ -30,10 +30,17 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    if (num2 === "0") { // displays a snarky error if the user divides by zero
+    if (num2 === "0") { // Doesn't allow the user to divide by zero
         return "Are you mocking me?";
     }
     return parseFloat(num1) / parseFloat(num2);
+}
+
+function modulo(num1, num2) {
+    if (num2 === "0") {
+        return "Are you mocking me?";
+    }
+    return parseFloat(num1) % parseFloat(num2);
 }
 
 function operate(num1, operator, num2) {
@@ -49,6 +56,9 @@ function operate(num1, operator, num2) {
         
         case "÷":
             return divide(num1, num2);
+        
+        case "%":
+            return modulo(num1, num2);
         
         default:
             return "OOPS! Something went wrong"
@@ -174,6 +184,16 @@ operatorButtons.forEach(operatorButton => {
                 currentDisplayValue.textContent = `${num1} ${operator}`;
                 break;
 
+            case "%":
+                if (num1 === "") {
+                    break;
+                }
+            num1 = modulo(num1, num2);
+            saveOperator(event);
+            num2 = "";
+            currentDisplayValue.textContent = `${num1} ${operator}`;
+            break;
+
             default: 
                 if (num1 === "") {
                 break;
@@ -189,8 +209,6 @@ equalButton.addEventListener("click", () => {
 });
 
 decimalButton.addEventListener("click", (event) => addDecimal(event));
-
-percentageButton.addEventListener("click", (event) => populateDisplay(event));
 
 clearButton.addEventListener("click", clearDisplay);
 
