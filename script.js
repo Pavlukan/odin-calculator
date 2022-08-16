@@ -51,10 +51,10 @@ function operate(num1, operator, num2) {
         case "-":
             return subtract(num1, num2);
 
-        case "×":
+        case "*":
             return multiply(num1, num2);
         
-        case "÷":
+        case "/":
             return divide(num1, num2);
         
         case "%":
@@ -81,12 +81,12 @@ function evaluate() {
 }
 
 // function which populates the display with numbers
-function populateDisplay(event) {
-    if (!waitingForSecondNumber) {
-        num1 += event.target.value;
+function populateDisplay(value) {
+    if (!waitingForSecondNumber && value <= 9 && value >= 0) {
+        num1 += value;
         currentDisplayValue.textContent = num1;
-    } else if (waitingForSecondNumber) {
-        num2 += event.target.value;
+    } else if (waitingForSecondNumber && value <= 9 && value >= 0) {
+        num2 += value;
         currentDisplayValue.textContent = num2;
     }
 }
@@ -120,8 +120,8 @@ function clearDisplay() {
 }
 
 // this function saves the operator and refreshes the values of two of the global variables
-function saveOperator(event) {
-    operator = event.target.value;
+function saveOperator(value) {
+    operator = value;
     waitingForSecondNumber = true;
 }
 
@@ -138,7 +138,7 @@ function deleteCharacter(event) {
 
 // event listeners for buttons
 numberButtons.forEach(numberButton => {
-    numberButton.addEventListener("click", (event) => populateDisplay(event));
+    numberButton.addEventListener("click", (event) => populateDisplay(event.target.value));
 });
 
 operatorButtons.forEach(operatorButton => {
@@ -149,9 +149,9 @@ operatorButtons.forEach(operatorButton => {
                     break;
                 }
                 num1 = add(num1, num2);
-                saveOperator(event);
+                saveOperator(event.target.value);
                 num2 = "";
-                currentDisplayValue.textContent = `${num1} ${operator}`;
+                currentDisplayValue.textContent = num1;
                 break;
 
             case "-":
@@ -159,46 +159,46 @@ operatorButtons.forEach(operatorButton => {
                     break;
                 }
                 num1 = subtract(num1, num2);
-                saveOperator(event);
+                saveOperator(event.target.value);
                 num2 = "";
-                currentDisplayValue.textContent = `${num1} ${operator}`;
+                currentDisplayValue.textContent = num1;
                 break;
 
-            case "×":
+            case "*":
                 if (num1 === "") {
                     break;
                 }
                 num1 = multiply(num1, num2);
-                saveOperator(event);
+                saveOperator(event.target.value);
                 num2 = "";
-                currentDisplayValue.textContent = `${num1} ${operator}`;
+                currentDisplayValue.textContent = num1;
                 break;
 
-            case "÷":
+            case "/":
                 if (num1 === "") {
                     break;
                 }
                 num1 = divide(num1, num2);
-                saveOperator(event);
+                saveOperator(event.target.value);
                 num2 = "";
-                currentDisplayValue.textContent = `${num1} ${operator}`;
+                currentDisplayValue.textContent = num1;
                 break;
 
             case "%":
                 if (num1 === "") {
                     break;
                 }
-            num1 = modulo(num1, num2);
-            saveOperator(event);
-            num2 = "";
-            currentDisplayValue.textContent = `${num1} ${operator}`;
-            break;
+                num1 = modulo(num1, num2);
+                saveOperator(event.target.value);
+                num2 = "";
+                currentDisplayValue.textContent = num1;
+                break;
 
             default: 
                 if (num1 === "") {
-                break;
+                    break;
                 }
-                saveOperator(event);
+                saveOperator(event.target.value);
                 break;
         }
     });
@@ -213,6 +213,83 @@ decimalButton.addEventListener("click", (event) => addDecimal(event));
 clearButton.addEventListener("click", clearDisplay);
 
 deleteButton.addEventListener("click", deleteCharacter);
+
+window.addEventListener("keydown", (event) => keyboardHandlers(event));
+
+
+// keyboard support
+function keyboardHandlers(event) {
+    if (event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/") {
+        switch (operator) { // this block of code is responsible for chaining operations
+            case "+":
+                if (num1 === "") {
+                    break;
+                }
+                num1 = add(num1, num2);
+                saveOperator(event.key);
+                num2 = "";
+                currentDisplayValue.textContent = num1;
+                break;
+
+            case "-":
+                if (num1 === "") {
+                    break;
+                }
+                num1 = subtract(num1, num2);
+                saveOperator(event.key);
+                num2 = "";
+                currentDisplayValue.textContent = num1;
+                break;
+
+            case "*":
+                if (num1 === "") {
+                    break;
+                }
+                num1 = multiply(num1, num2);
+                saveOperator(event.key);
+                num2 = "";
+                currentDisplayValue.textContent = num1;
+                break;
+
+            case "/":
+                if (num1 === "") {
+                    break;
+                }
+                num1 = divide(num1, num2);
+                saveOperator(event.key);
+                num2 = "";
+                currentDisplayValue.textContent = num1;
+                break;
+
+            case "%":
+                if (num1 === "") {
+                    break;
+                }
+                num1 = modulo(num1, num2);
+                saveOperator(event.key);
+                num2 = "";
+                currentDisplayValue.textContent = num1;
+                break;
+
+            default: 
+                if (num1 === "") {
+                    break;
+                }
+                saveOperator(event.key);
+                break;
+        }
+    } else if (event.key === ".") {
+        addDecimal();
+    } else if (event.key === "c" || event.key === "C") {
+        clearDisplay();
+    } else if (event.key === "Backspace") {
+        deleteCharacter();
+    } else if (event.key === "=" || event.key === "Enter") {
+        evaluate();
+    } else {
+        populateDisplay(event.key);
+    }
+}
 
 
 
