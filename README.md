@@ -1,5 +1,6 @@
 # odin-calculator
-A simple web calculator that performs the most basic operations
+A simple web calculator that performs the most basic operations.
+Live preview: https://pavlukan.github.io/odin-calculator/
 
 ## Design
 I used three colors for design: #1C1C1E for the background color of the webpage, the calculator body and the buttons themselves.
@@ -14,6 +15,21 @@ The calculator can perform the most basic mathematical operations such as additi
 If the user has made a typo or wants to clear the entire display, he can accomplish that by using two buttons at the top left corner of the button grid. The first one will clear the entire display, while the next one is going to remove the last character.
 
 As of 14th of August, 2022 the calculator cannot divide by zero. I hope to fix this issue in the future :)
+
+### Keyboard support
+I've also added keyboard support for the calculator.
+| Keyboard key / letter | Action |
+| ------------ | ------ |
+| "C" or "c" | Clear display |
+| Backspace | Remove the last character |
+| % | Modulo operation |
+| / | Division operation |
+| * | Multiplication operation |
+| + | Addition operation |
+| - | Subtraction operation |
+| Enter or = | Show result |
+| "." | Append decimal point |
+
 
 
 
